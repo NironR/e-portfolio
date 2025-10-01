@@ -1,9 +1,62 @@
 @layer layout {
     .navbar {
+        --headerNavFontSize: calc((16 / 16) * 1rem);
+
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
         padding: 0;
+        width: var(--space2XL);
+        position: fixed;
+        top: var(--spaceOuter);
+        left: var(--spaceOuter);
+        bottom: var(--spaceOuter);
+        z-index: var(--zIndex4);
+        isolation: isolate;
+
+        @media (--mediaMobile) {
+            --headerNavFontSize: calc((22 / 16) * 1rem);
+        }
+
+        @media (--mediaMobile), (--mediaMobileLS) {
+            bottom: auto;
+        }
+    }
+
+    .logo {
+        display: flex;
+        position: relative;
+        padding: var(--spaceS) var(--spaceS) var(--spaceL);
+        z-index: var(--zIndex2);
+
+        @media (--mediaMobile) {
+            padding-bottom: var(--spaceS);
+        }
+    }
+
+    .nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        flex: 1 1 auto;
+        max-width: var(--space2XL);
+
+        @media (--mediaMobile), (--mediaMobileLS) {
+            display: none;
+        }
+    }
+
+    .navList {
+        transform: rotate(180deg);
+        display: flex;
+        flex-direction: row-reverse;
+        position: relative;
+        writing-mode: vertical-rl;
+    }
+
+    .navLink {
+        padding: var(--spaceM);
     }
 }
