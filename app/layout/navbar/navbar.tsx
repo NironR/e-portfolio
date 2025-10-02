@@ -1,5 +1,6 @@
 import { Link as RouterLink, useLocation } from '@remix-run/react';
 import { navLinks } from "~/layout/navbar/nav-data";
+import { Monogram } from '~/components/monogram/monogram';
 import styles from './navbar.module.css';
 import config from '~/config.json';
 
@@ -14,7 +15,7 @@ export const Navbar = () => {
                 to={location.pathname === '/' ? '/#intro' : '/'}
                 prefetch="intent"
             >
-                {config.name}
+                <Monogram highlight={location.pathname === '/'} />
             </RouterLink>
             <nav aria-label="Primary">
                 <div className={styles.navList}>
@@ -34,5 +35,3 @@ export const Navbar = () => {
         </header>
     );
 };
-
-export default Navbar;

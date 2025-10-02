@@ -7,7 +7,7 @@ import {
 import type { LinksFunction } from "@remix-run/cloudflare";
 
 import { Navbar } from "./layout/navbar/navbar";
-import { ThemeProvider, themeStyles } from "~/components/theme-provider/theme-provider"; // ⬅️ adjust path if needed
+import { ThemeProvider, themeStyles } from "~/components/theme-provider/theme-provider";
 
 import "./global.module.css";
 import "./reset.module.css";
@@ -44,18 +44,17 @@ export default function App() {
             <Navbar />
         </ThemeProvider>
 
-        {/* Sync theme from localStorage / prefers-color-scheme on client */}
+        {/* Sync theme to match the SSR/default set in root (ThemeProvider/body) */}
         <script
             dangerouslySetInnerHTML={{
                 __html: `
 (function(){
   try {
-    var t = localStorage.getItem('theme');
-    if (!t) {
-      t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
+    var t = document.body.getAttribute('data-theme') || 'dark';
+    if (t !== 'dark' && t !== 'light') { t = 'dark'; }
     document.documentElement.style.setProperty('color-scheme', t);
     document.body.setAttribute('data-theme', t);
+    try { localStorage.setItem('theme', t); } catch (e) {}
   } catch (e) {}
 })();
 `,

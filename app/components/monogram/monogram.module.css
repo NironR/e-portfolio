@@ -1,0 +1,44 @@
+@import 'tailwindcss/components';
+
+@layer components {
+    .monogram {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        vertical-align: middle;
+        isolation: isolate;
+    }
+
+    .base {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    .fill {
+        position: absolute;
+        inset: 0;
+        background: var(--accent);
+        /* Start hidden (unfilled) from bottom */
+        transform: scaleY(0);
+        transform-origin: bottom;
+        pointer-events: none;
+        will-change: transform;
+
+        @media (--mediaUseMotion) {
+            transition: transform var(--durationM) var(--bezierFastoutSlowin);
+        }
+    }
+
+    /* When the anchor is hovered OR the monogram itself is hovered,
+       reveal the fill from bottom to top; and reverse on un-hover. */
+    :is(a:hover, .monogram:hover) .fill {
+        transform: scaleY(1);
+        transform-origin: bottom; /* ensures fill animates bottom->top */
+    }
+}
