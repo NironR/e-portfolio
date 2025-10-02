@@ -24,21 +24,19 @@
         position: absolute;
         inset: 0;
         background: var(--accent);
-        /* Start hidden (unfilled) from bottom */
-        transform: scaleY(0);
-        transform-origin: bottom;
+        /* Start hidden (unfilled) by clipping from the bottom */
+        clip-path: inset(0 0 100% 0);
         pointer-events: none;
-        will-change: transform;
+        will-change: clip-path;
 
         @media (--mediaUseMotion) {
-            transition: transform var(--durationM) var(--bezierFastoutSlowin);
+            transition: clip-path var(--durationM) var(--bezierFastoutSlowin);
         }
     }
 
     /* When the anchor is hovered OR the monogram itself is hovered,
-       reveal the fill from bottom to top; and reverse on un-hover. */
+       reveal the fill from bottom to top; and on un-hover, hide bottom->top (drain). */
     :is(a:hover, .monogram:hover) .fill {
-        transform: scaleY(1);
-        transform-origin: bottom; /* ensures fill animates bottom->top */
+        clip-path: inset(0 0 0 0);
     }
 }
