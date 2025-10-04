@@ -11,6 +11,7 @@ import { ThemeProvider, themeStyles } from "~/components/theme-provider/theme-pr
 
 import "./global.module.css";
 import "./reset.module.css";
+import "./root.module.css";
 
 export const links: LinksFunction = () => [
     // { rel: "preconnect", href: "https://fonts.googleapis.com" },

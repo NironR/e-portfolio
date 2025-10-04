@@ -1,6 +1,6 @@
 @layer layout {
     .navbar {
-        --headerNavFontSize: calc((16 / 16) * 1.15rem);
+        --headerNavFontSize: calc((16 / 16) * 1.1rem);
 
         display: flex;
         flex-direction: column;
@@ -38,15 +38,17 @@
         }
     }
 
+
+
     .nav {
         display: flex;
         flex-direction: column;
-        align-items: center;
         justify-content: space-between;
+        align-items: center;
         flex: 1 1 auto;
         max-width: var(--space2XL);
 
-        @media (--mediaMobile), (--mediaMobileLS) {
+        @media(--mediaMobile), (--mediaMobileLS) {
             display: none;
         }
     }
@@ -124,6 +126,27 @@
             align-items: center;
             justify-content: center;
         }
+    }
+
+    .navIconLink {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--spaceS);
+        width: var(--space2XL);
+        height: var(--space2XL);
+        color: var(--textLight);
+        transition: color var(--durationM) var(--bezierFastoutSlowin);
+
+        &:hover,
+        &:active {
+            color: var(--accent);
+        }
+    }
+
+    .navIcon {
+        fill: currentColor;
+        transition: fill var(--durationM) ease;
     }
 }
 
