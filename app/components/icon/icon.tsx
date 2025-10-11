@@ -18,6 +18,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(
                 className={classes(styles.icon, className)}
                 width={size}
                 height={size}
+                fill="currentColor"
                 {...rest}
             >
                 <use href={`${sprites}#${icon}`} />

@@ -2,41 +2,30 @@
 
 @layer components {
     .monogram {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-        max-width: none;
-        vertical-align: middle;
-        isolation: isolate;
+        fill: var(--textTitle);
+        transition: fill var(--durationL) ease;
     }
 
-    .base {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        pointer-events: none;
-        user-select: none;
-    }
+    .highlight {
+        fill: var(--accent);
+        transform-box: fill-box;
+        transform-origin: top;
+        transform: scaleY(0);
+        opacity: 0;
+        transition: transform var(--durationL) var(--bezierFastoutSlowin),
+        opacity 0.1s ease var(--durationM);
 
-    .fill {
-        position: absolute;
-        inset: 0;
-        background: var(--accent);
-        /* Start hidden (unfilled) by clipping from the bottom */
-        clip-path: inset(0 0 100% 0);
-        pointer-events: none;
-        will-change: clip-path;
-
-        @media (--mediaUseMotion) {
-            transition: clip-path var(--durationM) var(--bezierFastoutSlowin);
+        @media (--mediaReduceMotion) {
+            transition: transform var(--durationM) var(--bezierFastoutSlowin),
+            opacity 0.1s ease var(--durationM);
         }
-    }
 
-    /* When the anchor is hovered OR the monogram itself is hovered,
-       reveal the fill from bottom to top; and on un-hover, hide bottom->top (drain). */
-    :is(a:hover, .monogram:hover) .fill {
-        clip-path: inset(0 0 0 0);
+        :is(a:hover, .monogram:hover) & {
+            transform-origin: bottom;
+            transform: scaleY(1);
+            opacity: 1;
+            transition: transform var(--durationM) var(--bezierFastoutSlowin),
+            opacity 0.1s ease;
+        }
     }
 }

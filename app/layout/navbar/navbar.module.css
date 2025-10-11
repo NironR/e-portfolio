@@ -27,8 +27,6 @@
     .logo {
         display: flex;
         position: relative;
-        width: 85px;
-        height: 81px;
         padding: 0;
         margin: var(--spaceS) var(--spaceS) var(--spaceL);
         z-index: var(--zIndex2);
@@ -137,17 +135,15 @@
         height: var(--space2XL);
         color: var(--textLight);
         transition: color var(--durationM) var(--bezierFastoutSlowin);
-
-        &:hover,
-        &:active {
-            color: var(--accent);
-        }
     }
 
     .navIcon {
         fill: currentColor;
         transition: fill var(--durationM) ease;
     }
+
+
+
 }
 
 /* Reinforce layout-layer priority for nav link underline pseudo-element */
@@ -172,4 +168,10 @@
         transform: scaleY(1) translateZ(0) !important;
         transform-origin: top !important;
     }
+
+    .navIconLink:hover,
+    .navIconLink:active {
+        color: var(--accent) !important;
+    }
 }
+

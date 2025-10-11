@@ -19,7 +19,7 @@ export const Navbar = () => {
                 prefetch="intent"
                 data-navbar-item
             >
-                <Monogram highlight={location.pathname === '/'} />
+                <Monogram highlight/>
             </RouterLink>
             <nav aria-label="Primary" className={styles.nav}>
                 <div className={styles.navList}>

@@ -17,7 +17,7 @@ export interface TokensByViewport {
 const baseTokens: ThemeTokens = {
     black: "oklch(0% 0 0)",
     white: "oklch(100% 0 0)",
-    bezierFastoutSlowin: "cubic-bezier(0.4, 0.0, 0.2, 1)",
+    bezierFastoutSlowin: "cubic-bezier(0.42, 1, 0.75, 1)",
     durationXS: "200ms",
     durationS: "300ms",
     durationM: "400ms",
