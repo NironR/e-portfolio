@@ -1,0 +1,21 @@
+@import 'tailwindcss/components';
+
+@layer components {
+    .text {
+        &::after {
+        content: '_';
+        visibility: hidden;
+           }
+    }
+
+    .glypth {
+        opacity: 0.8;
+        font-weight: var(--fontWeightRegular);
+        font-family: var(--fontStack);
+        line-height: 0;
+    }
+    
+    .value {
+        opacity: 0;
+    }
+}

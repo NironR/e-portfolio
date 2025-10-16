@@ -1,5 +1,6 @@
 import {
     Links,
+    Outlet,
     Meta,
     Scripts,
     ScrollRestoration,
@@ -8,10 +9,10 @@ import type { LinksFunction } from "@remix-run/cloudflare";
 
 import { Navbar } from "./layout/navbar/navbar";
 import { ThemeProvider, themeStyles } from "~/components/theme-provider/theme-provider";
-
+import Home from "~/routes/home/home";
 import "./global.module.css";
 import "./reset.module.css";
-import "./root.module.css";
+import styles from "./root.module.css";
 
 export const links: LinksFunction = () => [
     // { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -28,8 +29,6 @@ export default function App() {
         <head>
             <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-            {/* Tokens + local @font-face rules from your theme-provider */}
             <style
                 id="theme-styles"
                 dangerouslySetInnerHTML={{ __html: themeStyles }}
@@ -43,6 +42,14 @@ export default function App() {
         <body data-theme="dark">
         <ThemeProvider theme="dark">
             <Navbar />
+            <main
+                id="main-content"
+                className={styles.container}
+                tabIndex={-1}
+            >
+                <Home />
+                <Outlet />
+            </main>
         </ThemeProvider>
 
         {/* Sync theme to match the SSR/default set in root (ThemeProvider/body) */}
