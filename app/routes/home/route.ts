@@ -1,1 +1,1 @@
-export { Home as default, meta, links } from './home';
+export { home as default, meta, links } from './home';
