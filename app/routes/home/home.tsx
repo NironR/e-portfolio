@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import { Intro } from "~/routes/home/intro";
 import config from "~/config.json";
 import styles from './home.module.css';
+import {Profile} from "~/routes/home/profile";
 
     export const links = () => {
         return [
@@ -25,8 +26,8 @@ import styles from './home.module.css';
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Designer + Developer" },
-    { name: `Personal portfolio of ${config.name} - a product designer working on desktop and web apps with a focus on UI, motion, and design`},
+    { title: "Designer + Engineer" },
+    { name: `Personal portfolio of ${config.name} - a software engineer working on desktop and web apps with a focus on UI, motion, and design`},
   ];
 };
 
@@ -51,7 +52,6 @@ export default function Home() {
             },
             { rootMargin: '0px 0px -10% 0px', threshold: 0.1 }
         );
-
         const indicatorObserver = new IntersectionObserver(
             ([entry]) => {
                 setScrollIndicatorHidden(!entry.isIntersecting);
@@ -78,9 +78,8 @@ export default function Home() {
               sectionRef={intro}
               scrollIndicatorHidden={scrollIndicatorHidden}
           />
+
+          <Profile />
       </div>
   );
-}
-
-export class home {
 }

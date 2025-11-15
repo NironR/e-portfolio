@@ -126,7 +126,7 @@
         animation-fill-mode: forwards;
         animation-timing-function: var(--bezierFastoutSlowin);
         transform-origin: left;
-        transform: scale3d(0, 1, 1);
+        transform: scale3d(0, 1, 1); /* Start hidden from left */
         position: absolute;
         inset: 0 -0.02em 0 0;
         z-index: var(--zIndex1);
@@ -142,10 +142,8 @@
     &[data-status='entering'] {
         animation-name: introTextReveal;
 
-        @media (--mediaUseMotion) {
-            &::after:global {
-                animation-name: reveal;
-            }
+        &::after {
+            animation-name: reveal; /* Move this outside the media query temporarily */
         }
     }
 
@@ -154,7 +152,7 @@
 
         &::after {
             opacity: 1;
-            transform: scale3d(0, 0, 1);
+            transform: scale3d(0, 1, 1); /* End hidden on right */
             transform-origin: right;
         }
     }
@@ -197,12 +195,10 @@
     top: 0.05em;
 
     &[data-status='entering'] {
-        &:global {
-            animation-name: fade-in;
-        }
+        animation-name: fade-in;
 
         @media (--mediaUseMotion) {
-            animation-name: introLine;
+            /*animation-name: introLine;*/
         }
     }
 
@@ -331,6 +327,36 @@
     }
 
     &:focus-visible {
+        opacity: 1;
+    }
+}
+
+
+/* Added missing keyframes for .word::after reveal and generic fade-in */
+@keyframes reveal {
+    0% {
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+    50% {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+    50.01% {
+        transform: scaleX(1);
+        transform-origin: right;
+    }
+    100% {
+        transform: scaleX(0);
+        transform-origin: right;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
         opacity: 1;
     }
 }
