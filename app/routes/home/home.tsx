@@ -1,43 +1,58 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
-import {useEffect, useRef, useState} from "react";
+import type { MetaFunction, LinksFunction } from "@remix-run/cloudflare";
+import { useEffect, useRef, useState } from "react";
 import { Intro } from "~/routes/home/intro";
+import { Profile } from "~/routes/home/profile";
 import config from "~/config.json";
-import styles from './home.module.css';
-import {Profile} from "~/routes/home/profile";
+import styles from "./home.module.css";
 
-    export const links = () => {
-        return [
-            {
-                rel: 'prefetch',
-                href: '/draco/draco_wasm_wrapper.js',
-                as: 'script',
-                type: 'text/javascript',
-                importance: 'low',
-            },
-            {
-                rel: 'prefetch',
-                href: '/draco/draco_decoder.wasm',
-                as: 'fetch',
-                type: 'application/wasm',
-                importance: 'low',
-            },
-        ];
-    };
+export const links: LinksFunction = () => {
+    return [
+        {
+            rel: "prefetch",
+            href: "/draco/draco_wasm_wrapper.js",
+            as: "script",
+            type: "text/javascript",
+            importance: "low",
+        },
+        {
+            rel: "prefetch",
+            href: "/draco/draco_decoder.wasm",
+            as: "fetch",
+            type: "application/wasm",
+            importance: "low",
+        },
+    ];
+};
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "Designer + Engineer" },
-    { name: `Personal portfolio of ${config.name} - a software engineer working on desktop and web apps with a focus on UI, motion, and design`},
-  ];
+    return [
+        { title: "Designer + Engineer" },
+        {
+            name: "description",
+            content: `Personal portfolio of ${config.name} - a software engineer working on desktop and web apps with a focus on UI, motion, and design`,
+        },
+    ];
 };
 
 export default function Home() {
-    const [visibleSections, setVisibleSections] = useState([]);
-    const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
-    const intro = useRef();
+    // -----------------------
+    // Types
+    // -----------------------
+    type SectionElement = HTMLElement | null;
+
+    // Keep track of which sections are visible
+    const [visibleSections, setVisibleSections] = useState<SectionElement[]>([]);
+    const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState<boolean>(false);
+
+    // Typed refs
+    const intro = useRef<HTMLElement>(null);
+    const projectOne = useRef<HTMLElement>(null);
+    const projectTwo = useRef<HTMLElement>(null);
+    const projectThree = useRef<HTMLElement>(null);
+    const details = useRef<HTMLElement>(null);
 
     useEffect(() => {
-        const sections = [intro];
+        const sections = [intro, projectOne, projectTwo, projectThree, details];
 
         const sectionObserver = new IntersectionObserver(
             (entries, observer) => {
@@ -45,41 +60,51 @@ export default function Home() {
                     if (entry.isIntersecting) {
                         const section = entry.target;
                         observer.unobserve(section);
-                        if (visibleSections.includes(section)) return;
-                        setVisibleSections(prevSections => [...prevSections, section]);
+
+                        setVisibleSections(prev =>
+                            prev.includes(section) ? prev : [...prev, section]
+                        );
                     }
                 });
             },
-            { rootMargin: '0px 0px -10% 0px', threshold: 0.1 }
+            { rootMargin: "0px 0px -10% 0px", threshold: 0.1 }
         );
+
         const indicatorObserver = new IntersectionObserver(
             ([entry]) => {
                 setScrollIndicatorHidden(!entry.isIntersecting);
             },
-            { rootMargin: '-100% 0px 0px 0px' }
+            { rootMargin: "-100% 0px 0px 0px" }
         );
 
-        sections.forEach(section => {
-            sectionObserver.observe(section.current);
+        // Observe section refs safely
+        sections.forEach(ref => {
+            if (ref.current) sectionObserver.observe(ref.current);
         });
 
-        indicatorObserver.observe(intro.current);
+        if (intro.current) indicatorObserver.observe(intro.current);
 
         return () => {
             sectionObserver.disconnect();
             indicatorObserver.disconnect();
         };
-    }, [visibleSections]);
+    }, []); // IMPORTANT: only run once
 
-  return (
-      <div className={styles.home}>
-          <Intro
-              id="intro"
-              sectionRef={intro}
-              scrollIndicatorHidden={scrollIndicatorHidden}
-          />
 
-          <Profile />
-      </div>
-  );
+
+    return (
+        <div className={styles.home}>
+            <Intro
+                id="intro"
+                sectionRef={intro}
+                visible={visibleSections.includes(intro.current)}
+            />
+
+            <Profile
+                sectionRef={details}
+                visible={visibleSections.includes(details.current)}
+                id="details"
+            />
+        </div>
+    );
 }

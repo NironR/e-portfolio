@@ -11,7 +11,7 @@ import {useEffect, useState, Suspense, lazy} from "react";
 import config from "~/config.json";
 import styles from './intro.module.css';
 
-export function Intro({ id, sectionRef, ...rest}) {
+export function Intro({ id, sectionRef, visible, ...rest}) {
     const { theme } = useTheme();
     const { disciplines } = config;
     const [disciplineIndex, setDisciplineIndex] = useState(0);
@@ -109,8 +109,6 @@ export function Intro({ id, sectionRef, ...rest}) {
                                 </div>
                             </Heading>
                         </header>
-
-
                     </>
                 )}
             </Transition>
