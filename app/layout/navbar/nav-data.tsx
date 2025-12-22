@@ -21,9 +21,9 @@ export const navLinks = [
 
 export const socialLinks = [
     {
-        label: 'Bluesky',
-        url: `https://bsky.app/profile/${config.bluesky}`,
-        icon: 'bluesky',
+        label: 'Nexus',
+        url: `https://next.nexusmods.com/profile/${config.nexus}`,
+        icon: 'nexus',
     },
     {
         label: 'Figma',

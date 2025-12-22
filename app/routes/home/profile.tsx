@@ -16,7 +16,7 @@ const ProfileText = ({ visible, titleId }: ProfileTextProps) => {
                 <DecoderText text="Hello there!" start={visible} delay={500} />
             </Heading>
             <Text className={styles.description} data-visible={visible} size="l" as="p">
-                I'm Ryan, a <strong>Software Engineering</strong> student, based in <strong>Sydney, Australia</strong>.
+                I'm Ryan, a <strong>Software Engineer</strong> based in <strong>Sydney, Australia</strong>.
             </Text>
             <Text className={styles.description} data-visible={visible} size="l" as="p">
 
