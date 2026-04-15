@@ -1,39 +1,36 @@
 import { Link } from '@remix-run/react';
 import { Icon } from '~/components/icon';
 import { Transition } from '~/components/transition';
+import { classes } from '~/utils/styles';
+import styles from './button.module.css';
 
-import './button.module.css';
-
-export interface ButtonProps {
-    /** Is this the principal call to action on the page? */
-    primary?: boolean;
-    /** What background color to use */
-    backgroundColor?: string;
-    /** How large should the button be? */
-    size?: 'small' | 'medium' | 'large';
-    /** Button contents */
-    label: string;
-    /** Optional click handler */
-    onClick?: () => void;
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    secondary?: boolean;
+    href?: string;
+    icon?: string;
+    children: React.ReactNode;
 }
 
-/** Primary UI component for user interaction */
 export const Button = ({
-                           primary = false,
-                           size = 'medium',
-                           backgroundColor,
-                           label,
-                           ...props
+                           secondary,
+                           href,
+                           icon,
+                           children,
+                           className,
+                           ...rest
                        }: ButtonProps) => {
-    const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+    const isLink = !!href;
+    const Element = isLink ? Link : 'button';
+
     return (
-        <button
-            type="button"
-            className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-            style={{ backgroundColor }}
-            {...props}
+        <Element
+            className={classes(styles.button, className)}
+            data-secondary={secondary}
+            to={href}
+            {...rest}
         >
-            {label}
-        </button>
+            {icon && <Icon icon={icon} />}
+            {children}
+        </Element>
     );
 };

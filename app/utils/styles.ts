@@ -1,6 +1,4 @@
-/**
- * Media query breakpoints
- */
+import { CSSProperties } from 'react';
 export const media = {
     desktop: 2080,
     laptop: 1680,
@@ -50,8 +48,8 @@ export const rgbToThreeColor = (rgb?: string | null): number[] =>
  */
 export function cssProps(
     props: Record<string, string | number | undefined>,
-    style: Record<string, string | number> = {}
-): Record<string, string | number> {
+    style: CSSProperties = {}
+): CSSProperties {
     const result: Record<string, string | number> = {};
 
     const keys = Object.keys(props);

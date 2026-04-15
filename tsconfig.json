@@ -33,7 +33,6 @@
     },
 
     // Remix takes care of building everything in `remix build`.
-    "noEmit": true,
-    "include": ["app", "src", "index.d.ts", "global.d.ts", "vite-env.d.ts"]
+    "noEmit": true
   }
 }

@@ -4,3 +4,4 @@ export * from './useHydrated';
 export * from './usePrevious';
 export * from './useWindowSize';
 export * from './useInViewport';
+export * from './useHasMounted';

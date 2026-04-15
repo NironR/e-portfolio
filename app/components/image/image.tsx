@@ -1,6 +1,6 @@
 import { Button } from '~/components/button';
 import { Icon } from '~/components/icon';
-import { useTheme } from '~/components/theme-provider';
+import { useTheme } from '~/components/theme-provider/theme-provider';
 import { useReducedMotion } from 'framer-motion';
 import { useHasMounted, useInViewport } from '~/hooks';
 import {
@@ -10,13 +10,9 @@ import {
     useRef,
     useState,
     CSSProperties,
-    ReactNode,
-    VideoHTMLAttributes,
-    ImgHTMLAttributes,
-    SyntheticEvent,
 } from 'react';
 import { resolveSrcFromSrcSet } from '~/utils/image';
-import { classes, cssProps, numToMs } from '~/utils/style';
+import { classes, cssProps, numToMs } from '~/utils/styles';
 import styles from './image.module.css';
 
 // Define props for the main Image component
@@ -72,7 +68,7 @@ export const Image: React.FC<ImageProps> = ({
         >
             <ImageElements
                 delay={delay}
-                onLoad={onLoad}
+                onAssetLoad={onLoad}
                 loaded={loaded}
                 inViewport={inViewport}
                 reveal={reveal}
@@ -87,7 +83,7 @@ export const Image: React.FC<ImageProps> = ({
 
 // Define props for the internal ImageElements component
 interface ImageElementsProps {
-    onLoad: () => void;
+    onAssetLoad: () => void;
     loaded: boolean;
     inViewport: boolean;
     srcSet?: string;
@@ -107,7 +103,7 @@ interface ImageElementsProps {
 }
 
 const ImageElements: React.FC<ImageElementsProps> = ({
-                                                         onLoad,
+                                                         onAssetLoad,
                                                          loaded,
                                                          inViewport,
                                                          srcSet,
@@ -137,9 +133,20 @@ const ImageElements: React.FC<ImageElementsProps> = ({
     const hasMounted = useHasMounted();
 
     useEffect(() => {
+        if (loaded) {
+            setShowPlaceholder(false);
+        }
+    }, [loaded]);
+
+    useEffect(() => {
         const resolveVideoSrc = async () => {
-            const resolvedVideoSrc = await resolveSrcFromSrcSet({ srcSet, sizes });
-            setVideoSrc(resolvedVideoSrc);
+            if (sizes) {
+                const resolvedVideoSrc = await resolveSrcFromSrcSet({ 
+                    srcSet: srcSet as string, 
+                    sizes: sizes as string 
+                });
+                setVideoSrc(resolvedVideoSrc);
+            }
         };
 
         if (isVideo && srcSet) {
@@ -154,19 +161,27 @@ const ImageElements: React.FC<ImageElementsProps> = ({
 
         const playVideo = () => {
             setPlaying(true);
-            videoRef.current.play();
+            if (videoRef.current) {
+                videoRef.current.play();
+            }
         };
 
         const pauseVideo = () => {
             setPlaying(false);
-            videoRef.current.pause();
+            if (videoRef.current) {
+                videoRef.current.pause();
+            }
         };
 
         if (!play) {
-            pauseVideo();
+            if (videoRef.current) {
+                videoRef.current.pause();
+            }
 
             if (restartOnPause) {
-                videoRef.current.currentTime = 0;
+                if (videoRef.current) {
+                    videoRef.current.currentTime = 0;
+                }
             }
         }
 
@@ -189,7 +204,9 @@ const ImageElements: React.FC<ImageElementsProps> = ({
             videoRef.current.play();
         } else {
             setPlaying(false);
-            videoRef.current.pause();
+            if (videoRef.current) {
+                videoRef.current.pause();
+            }
         }
     };
 
@@ -210,7 +227,7 @@ const ImageElements: React.FC<ImageElementsProps> = ({
                         data-loaded={loaded}
                         data-cover={cover}
                         autoPlay={!reduceMotion}
-                        onLoadStart={onLoad}
+                        onLoadStart={onAssetLoad}
                         src={videoSrc}
                         aria-label={alt}
                         ref={videoRef}
@@ -229,7 +246,7 @@ const ImageElements: React.FC<ImageElementsProps> = ({
                     className={styles.element}
                     data-loaded={loaded}
                     data-cover={cover}
-                    onLoad={onLoad}
+                    onLoad={onAssetLoad}
                     decoding="async"
                     src={showFullRes ? src : undefined}
                     srcSet={showFullRes ? srcSet : undefined}
