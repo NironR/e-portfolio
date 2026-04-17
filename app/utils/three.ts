@@ -1,4 +1,4 @@
-import { Cache, TextureLoader } from 'three';
+import { Cache, Light, Material, Mesh, Object3D, Scene, TextureLoader, WebGLRenderer } from 'three';
 
 // Enable caching for all loaders (guard for SSR)
 if (typeof window !== 'undefined') {
@@ -40,18 +40,20 @@ export function getTextureLoader() {
 /**
  * Clean up a scene's materials and geometry
  */
-export const cleanScene = scene => {
-    scene?.traverse(object => {
-        if (!object.isMesh) return;
+export const cleanScene = (scene: Scene | null | undefined): void => {
+    scene?.traverse((object: Object3D) => {
+        if (!('isMesh' in object) || !object.isMesh) return;
 
-        object.geometry.dispose();
+        const mesh = object as Mesh;
+        mesh.geometry.dispose();
 
-        if (object.material.isMaterial) {
-            cleanMaterial(object.material);
-        } else {
-            for (const material of object.material) {
-                cleanMaterial(material);
+        const material = mesh.material;
+        if (Array.isArray(material)) {
+            for (const item of material) {
+                cleanMaterial(item);
             }
+        } else {
+            cleanMaterial(material);
         }
     });
 };
@@ -59,11 +61,11 @@ export const cleanScene = scene => {
 /**
  * Clean up and dispose of a material
  */
-export const cleanMaterial = material => {
+export const cleanMaterial = (material: Material): void => {
     material.dispose();
 
     for (const key of Object.keys(material)) {
-        const value = material[key];
+        const value = material[key as keyof Material];
         if (value && typeof value === 'object' && 'minFilter' in value) {
             value.dispose();
 
@@ -76,27 +78,26 @@ export const cleanMaterial = material => {
 /**
  * Clean up and dispose of a renderer
  */
-export const cleanRenderer = renderer => {
-    renderer.dispose();
-    renderer = null;
+export const cleanRenderer = (renderer: WebGLRenderer | null | undefined): void => {
+    renderer?.dispose();
 };
 
 /**
  * Clean up lights by removing them from their parent
  */
-export const removeLights = lights => {
+export const removeLights = (lights: Light[] | Iterable<Light>): void => {
     for (const light of lights) {
-        light.parent.remove(light);
+        light.parent?.remove(light);
     }
 };
 
 /**
  * Get child by name
  */
-export const getChild = (name, object) => {
-    let node;
+export const getChild = (name: string, object: Object3D): Object3D | undefined => {
+    let node: Object3D | undefined;
 
-    object.traverse(child => {
+    object.traverse((child: Object3D) => {
         if (child.name === name) {
             node = child;
         }
