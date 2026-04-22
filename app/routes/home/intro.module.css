@@ -252,13 +252,12 @@
         transform: translateX(-1px);
     }
 
-    @media (--mediaUseMotion) {
-        transition-property: opacity, transform;
-
-        &::before {
+    @media (prefers-reduced-motion: no-preference) {
+        &.scrollIndicator::before {
             animation: introScrollIndicator 2s ease infinite;
         }
     }
+
 
     &[data-status='entered'] {
         opacity: 1;
@@ -332,6 +331,18 @@
     &:focus-visible {
         opacity: 1;
     }
+}
+
+/* In intro.module.css */
+
+.scrollIndicator {
+    /* Remove the @media (--mediaTouch) { display: none; } block */
+    display: block; /* Let the TSX handle the logic */
+}
+
+.mobileScrollIndicator {
+    /* Remove the @media (--mediaNoTouch) { display: none; } block */
+    display: block; /* Let the TSX handle the logic */
 }
 
 

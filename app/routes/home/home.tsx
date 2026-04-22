@@ -38,18 +38,18 @@ export default function Home() {
     // -----------------------
     // Types
     // -----------------------
-    type SectionElement = HTMLElement | null;
+    type SectionElement = HTMLDivElement | null;
 
     // Keep track of which sections are visible
     const [visibleSections, setVisibleSections] = useState<SectionElement[]>([]);
     const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState<boolean>(false);
 
     // Typed refs
-    const intro = useRef<HTMLElement>(null);
-    const projectOne = useRef<HTMLElement>(null);
-    const projectTwo = useRef<HTMLElement>(null);
-    const projectThree = useRef<HTMLElement>(null);
-    const details = useRef<HTMLElement>(null);
+    const intro = useRef<HTMLDivElement>(null);
+    const projectOne = useRef<HTMLDivElement>(null);
+    const projectTwo = useRef<HTMLDivElement>(null);
+    const projectThree = useRef<HTMLDivElement>(null);
+    const details = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const sections = [intro, projectOne, projectTwo, projectThree, details];
@@ -58,9 +58,8 @@ export default function Home() {
             (entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const section = entry.target;
+                        const section = entry.target as HTMLDivElement;
                         observer.unobserve(section);
-
                         setVisibleSections(prev =>
                             prev.includes(section) ? prev : [...prev, section]
                         );
@@ -98,6 +97,7 @@ export default function Home() {
                 id="intro"
                 sectionRef={intro}
                 visible={visibleSections.includes(intro.current)}
+                scrollIndicatorHidden={scrollIndicatorHidden}
             />
 
             <Profile
