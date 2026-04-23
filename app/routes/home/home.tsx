@@ -34,7 +34,7 @@ export const meta: MetaFunction = () => {
     ];
 };
 
-export default function Home() {
+export const Home = () => {
     // -----------------------
     // Types
     // -----------------------
