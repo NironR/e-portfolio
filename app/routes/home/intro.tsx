@@ -12,12 +12,15 @@ import { Link as RouterLink } from "@remix-run/react";
 import config from "~/config.json";
 import styles from './intro.module.css';
 
+const DisplacementSphere = lazy(() =>
+    import('./displacement-sphere').then(module => ({ default: module.DisplacementSphere }))
+);
+
 interface IntroProps {
     id: string;
     sectionRef: RefObject<HTMLElement>;
     visible: boolean;
     scrollIndicatorHidden: boolean;
-    [key: string]: any;
 }
 
 export function Intro({ id, sectionRef, visible, scrollIndicatorHidden, ...rest }: IntroProps) {
@@ -37,10 +40,6 @@ export function Intro({ id, sectionRef, visible, scrollIndicatorHidden, ...rest 
     const currentDiscipline = disciplines.find((_, index) => index === disciplineIndex);
     const titleId = `${id}-title`;
     const scrollToHash = useScrollToHash();
-
-    const DisplacementSphere = lazy(() =>
-        import('./displacement-sphere').then(module => ({ default: module.DisplacementSphere }))
-    );
 
     useInterval(
         () => {
