@@ -99,7 +99,6 @@ interface ImageElementsProps {
     height?: number | string;
     noPauseButton?: boolean;
     cover?: boolean;
-    [key: string]: any; // Allow other props to be spread to video/img
 }
 
 const ImageElements: React.FC<ImageElementsProps> = ({

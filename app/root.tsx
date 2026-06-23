@@ -9,7 +9,6 @@ import type { LinksFunction } from "@remix-run/cloudflare";
 
 import { Navbar } from "./layout/navbar/navbar";
 import { ThemeProvider, themeStyles } from "~/components/theme-provider/theme-provider";
-import { Home } from "~/routes/home/home";
 import "./global.module.css";
 import "./reset.module.css";
 import styles from "./root.module.css";
@@ -47,7 +46,6 @@ export default function App() {
                 className={styles.container}
                 tabIndex={-1}
             >
-                <Home />
                 <Outlet />
             </main>
         </ThemeProvider>

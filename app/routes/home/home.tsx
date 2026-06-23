@@ -34,13 +34,9 @@ export const meta: MetaFunction = () => {
     ];
 };
 
-export const Home = () => {
-    // -----------------------
-    // Types
-    // -----------------------
-    type SectionElement = HTMLDivElement | null;
+type SectionElement = HTMLDivElement | null;
 
-    // Keep track of which sections are visible
+export const Home = () => {
     const [visibleSections, setVisibleSections] = useState<SectionElement[]>([]);
     const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState<boolean>(false);
 
@@ -87,7 +83,7 @@ export const Home = () => {
             sectionObserver.disconnect();
             indicatorObserver.disconnect();
         };
-    }, []); // IMPORTANT: only run once
+    }, []);
 
 
 
