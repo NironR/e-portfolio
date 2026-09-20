@@ -29,6 +29,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.1",
     "@cloudflare/workers-types": "^4.20250425.0",
+    "@playwright/test": "^1.63.0",
     "@remix-run/dev": "2.16.5",
     "@storybook/addon-a11y": "^9.1.10",
     "@storybook/addon-docs": "^9.1.10",
