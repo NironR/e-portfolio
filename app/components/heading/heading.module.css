@@ -46,6 +46,14 @@
             text-align: center;
         }
 
+        &[data-align='right'] {
+            text-align: right;
+        }
+
+        &[data-weight='light'] {
+            font-weight: var(--fontWeightLight);
+        }
+
         &[data-weight='regular'] {
             font-weight: var(--fontWeightRegular);
         }

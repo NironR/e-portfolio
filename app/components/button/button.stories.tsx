@@ -4,15 +4,15 @@ import { Button } from './button';
 
 const meta = {
   component: Button,
+  args: { children: 'Button' },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    backgroundColor: "#000000",
-    label: "label"
-  }
+export const Primary: Story = {};
+
+export const Secondary: Story = {
+  args: { secondary: true },
 };
