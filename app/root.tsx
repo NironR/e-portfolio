@@ -12,8 +12,10 @@ import { ThemeProvider, themeStyles } from "~/components/theme-provider/theme-pr
 import "./global.module.css";
 import "./reset.module.css";
 import styles from "./root.module.css";
+import favicon from "~/assets/favicon.svg";
 
 export const links: LinksFunction = () => [
+    { rel: "icon", href: favicon, type: "image/svg+xml" },
     // { rel: "preconnect", href: "https://fonts.googleapis.com" },
     // { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
     // {
