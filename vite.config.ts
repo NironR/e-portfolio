@@ -5,6 +5,8 @@ import { getLoadContext } from "./load-context";
 
 export default defineConfig({
   plugins: [
+    // Remix/Cloudflare plugins break Storybook; .storybook/main.ts sets STORYBOOK
+    ...(process.env.STORYBOOK ? [] : [
     cloudflareDevProxyVitePlugin({ getLoadContext }),
     remix({
       future: {
@@ -15,6 +17,7 @@ export default defineConfig({
         v3_lazyRouteDiscovery: true
       }
     }),
+    ]),
     tsconfigPaths(),
   ],
   ssr: {
