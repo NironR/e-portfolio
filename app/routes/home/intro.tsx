@@ -28,7 +28,7 @@ export function Intro({ id, sectionRef, visible, scrollIndicatorHidden, ...rest 
     const { disciplines } = config;
     const [disciplineIndex, setDisciplineIndex] = useState(0);
     const prevTheme = usePrevious(theme);
-    const { w:width } = useWindowSize(); // Get current window width
+    const { width } = useWindowSize();
     const isHydrated = useHydrated();
     
     // Determine if we should show the mobile version based on width
