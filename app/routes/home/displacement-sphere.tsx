@@ -53,13 +53,18 @@ export const DisplacementSphere = (props: DisplacementSphereProps) => {
     useEffect(() => {
         const { innerWidth, innerHeight } = window;
         mouse.current = new Vector2(0.8, 0.5);
-        renderer.current = new WebGLRenderer({
-            canvas: canvasRef.current!,
-            antialias: false,
-            alpha: true,
-            powerPreference: 'high-performance',
-            failIfMajorPerformanceCaveat: true,
-        });
+        try {
+            renderer.current = new WebGLRenderer({
+                canvas: canvasRef.current!,
+                antialias: false,
+                alpha: true,
+                powerPreference: 'high-performance',
+                failIfMajorPerformanceCaveat: true,
+            });
+        } catch {
+            // No WebGL (or software-only GPU): skip the decorative sphere instead of crashing the page
+            return;
+        }
         renderer.current.setSize(innerWidth, innerHeight);
         renderer.current.setPixelRatio(1);
         renderer.current.outputColorSpace = LinearSRGBColorSpace;
