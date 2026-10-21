@@ -16,3 +16,8 @@ storybook-static
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+
+# Claude and Github
+/.claude
+/.github
