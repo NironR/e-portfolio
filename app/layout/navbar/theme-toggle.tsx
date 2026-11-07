@@ -1,16 +1,23 @@
-import { useId } from 'react';
-import { Button } from '~/components/button';
-import styles from './theme-toggle.module.css';
+import { Icon } from '~/components/icon/icon';
+import { useTheme } from '~/components/theme-provider/theme-provider';
 
-export const ThemeToggle = () => {
+interface ThemeToggleProps {
+    className?: string;
+    iconClassName?: string;
+}
+
+export const ThemeToggle = ({ className, iconClassName }: ThemeToggleProps) => {
+    const { theme, toggleTheme } = useTheme();
+    const isDark = theme === 'dark';
+
     return (
-        <Button>
-            <svg>
-                <defs>
-                    <circle className={styles.circle} data-mask={true} cx="19" cy="19" r="13" />
-                    <circle className={styles.maskl} cx="25" cy="14" r="9" />
-                </defs>
-            </svg>
-        </Button>
+        <button
+            type="button"
+            className={className}
+            aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+            onClick={toggleTheme}
+        >
+            <Icon className={iconClassName} icon={isDark ? 'sun' : 'moon'} />
+        </button>
     );
 };
