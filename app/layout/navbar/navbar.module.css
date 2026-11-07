@@ -137,6 +137,14 @@
         transition: color var(--durationM) var(--bezierFastoutSlowin);
     }
 
+    /* Mirrors the logo's corner: fixed top-right, outside .nav so it also shows on mobile */
+    .themeToggle {
+        position: fixed;
+        top: var(--spaceOuter);
+        right: var(--spaceOuter);
+        z-index: var(--zIndex4);
+    }
+
     .navIcon {
         fill: currentColor;
         transition: fill var(--durationM) ease;

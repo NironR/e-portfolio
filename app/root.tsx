@@ -4,11 +4,14 @@ import {
     Meta,
     Scripts,
     ScrollRestoration,
+    useLoaderData,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/cloudflare";
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { useState } from "react";
 
 import { Navbar } from "./layout/navbar/navbar";
 import { ThemeProvider, themeStyles } from "~/components/theme-provider/theme-provider";
+import type { ThemeName } from "~/components/theme-provider/theme";
 import "./global.module.css";
 import "./reset.module.css";
 import styles from "./root.module.css";
@@ -24,9 +27,24 @@ export const links: LinksFunction = () => [
     // },
 ];
 
+// Read the theme cookie on the server so the first paint is already the right theme
+export const loader = ({ request }: LoaderFunctionArgs) => {
+    const saved = request.headers.get("Cookie")?.match(/(?:^|;\s*)theme=(light|dark)\b/)?.[1];
+    return { theme: (saved ?? "dark") as ThemeName };
+};
+
 export default function App() {
+    const { theme: savedTheme } = useLoaderData<typeof loader>();
+    const [theme, setTheme] = useState<ThemeName>(savedTheme);
+
+    const toggleTheme = () => {
+        const next = theme === "dark" ? "light" : "dark";
+        setTheme(next);
+        document.cookie = `theme=${next}; path=/; max-age=31536000; samesite=lax`;
+    };
+
     return (
-        <html lang="en">
+        <html lang="en" style={{ colorScheme: theme }}>
         <head>
             <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,9 +57,8 @@ export default function App() {
             <Links />
         </head>
 
-        {/* SSR default theme; will be updated by the inline script below */}
-        <body data-theme="dark">
-        <ThemeProvider theme="dark">
+        <body data-theme={theme}>
+        <ThemeProvider theme={theme} toggleTheme={toggleTheme}>
             <Navbar />
             <main
                 id="main-content"
@@ -51,23 +68,6 @@ export default function App() {
                 <Outlet />
             </main>
         </ThemeProvider>
-
-        {/* Sync theme to match the SSR/default set in root (ThemeProvider/body) */}
-        <script
-            dangerouslySetInnerHTML={{
-                __html: `
-(function(){
-  try {
-    var t = document.body.getAttribute('data-theme') || 'dark';
-    if (t !== 'dark' && t !== 'light') { t = 'dark'; }
-    document.documentElement.style.setProperty('color-scheme', t);
-    document.body.setAttribute('data-theme', t);
-    try { localStorage.setItem('theme', t); } catch (e) {}
-  } catch (e) {}
-})();
-`,
-            }}
-        />
 
         <ScrollRestoration />
         <Scripts />

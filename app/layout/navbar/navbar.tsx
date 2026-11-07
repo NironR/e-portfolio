@@ -2,6 +2,8 @@ import { Link as RouterLink, useLocation } from '@remix-run/react';
 import { navLinks, socialLinks } from "~/layout/navbar/nav-data";
 import { Monogram } from '~/components/monogram/monogram';
 import { Icon } from '~/components/icon/icon';
+import { ThemeToggle } from './theme-toggle';
+import { classes } from '~/utils/styles';
 import { useRef } from 'react';
 import styles from './navbar.module.css';
 import config from '~/config.json';
@@ -50,6 +52,10 @@ export const Navbar = () => {
         </div>
         <NavbarIcons desktop />
       </nav>
+      <ThemeToggle
+        className={classes(styles.navIconLink, styles.themeToggle)}
+        iconClassName={styles.navIcon}
+      />
     </header>
   );
 };
