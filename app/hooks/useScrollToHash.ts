@@ -3,15 +3,21 @@ import { useLocation, useNavigate } from '@remix-run/react';
 import { useCallback, useRef } from 'react';
 
 export function useScrollToHash() {
-    const scrollTimeout = useRef();
+    const scrollTimeout = useRef<ReturnType<typeof setTimeout>>();
     const location = useLocation();
     const navigate = useNavigate();
     const reduceMotion = useReducedMotion();
 
     const scrollToHash = useCallback(
-        (hash, onDone) => {
+        (hash: string, onDone?: () => void) => {
             const id = hash.split('#')[1];
             const targetElement = document.getElementById(id);
+
+            // Section may not exist yet (e.g. /#project-1 before projects are added)
+            if (!targetElement) {
+                onDone?.();
+                return;
+            }
 
             targetElement.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
 
@@ -23,7 +29,7 @@ export function useScrollToHash() {
 
                     if (window.location.pathname === location.pathname) {
                         onDone?.();
-                        navigate(`${location.pathname}#${id}`, { scroll: false });
+                        navigate(`${location.pathname}#${id}`, { preventScrollReset: true });
                     }
                 }, 50);
             };
