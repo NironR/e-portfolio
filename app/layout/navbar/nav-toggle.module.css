@@ -1,0 +1,63 @@
+@layer layout {
+    /* Same corner as the desktop theme toggle, which is hidden on mobile */
+    .toggle {
+        position: fixed;
+        top: var(--spaceOuter);
+        right: var(--spaceOuter);
+        z-index: var(--zIndex4);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: var(--space2XL);
+        height: var(--space2XL);
+
+        @media (--mediaMobile), (--mediaMobileLS) {
+            display: flex;
+        }
+    }
+
+    .icon {
+        position: absolute;
+        width: var(--spaceXL);
+        height: var(--spaceXL);
+        fill: var(--textBody);
+        opacity: 1;
+        transform: rotate(0deg);
+        transition-property: opacity, fill;
+        transition-duration: var(--durationM);
+        transition-timing-function: var(--bezierFastoutSlowin);
+
+        @media (--mediaUseMotion) {
+            transition-delay: 0.1s;
+            transition-property: opacity, transform, fill;
+        }
+
+        /* Menu icon fades out when open; close icon fades in */
+        &[data-open='true'] {
+            opacity: 0;
+
+            @media (--mediaUseMotion) {
+                transition-delay: 0s;
+                transform: rotate(45deg);
+            }
+        }
+
+        &[data-close='true'] {
+            opacity: 0;
+
+            @media (--mediaUseMotion) {
+                transition-delay: 0s;
+                transform: rotate(-45deg);
+            }
+        }
+
+        &[data-open='true'][data-close='true'] {
+            opacity: 1;
+
+            @media (--mediaUseMotion) {
+                transition-delay: 0.1s;
+                transform: rotate(0deg);
+            }
+        }
+    }
+}
