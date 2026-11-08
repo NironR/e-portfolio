@@ -1,6 +1,6 @@
-import profileImgPLaceholder from '~/assets/self-portrait-placeholder.svg';
-import profileImg from '~/assets/self-portrait-placeholder.svg';
-import profileImgLarge from '~/assets/self-portrait-placeholder.svg';
+import profileImgPLaceholder from '~/assets/profile-placeholder.jpg';
+import profileImg from '~/assets/profile-480.jpg';
+import profileImgLarge from '~/assets/profile.jpg';
 import { Image } from '~/components/image/image';
 import { Fragment, useState } from "react";
 import { Section } from "~/components/section/section";
@@ -93,11 +93,11 @@ export const Profile = ({ id, visible = false, sectionRef }: ProfileProps) => {
                                     reveal
                                     delay={100}
                                     placeholder={profileImgPLaceholder}
-                                    srcSet={`${profileImg} 480w, ${profileImgLarge} 960w`}
-                                    width = {960}
-                                    height = {1280}
+                                    srcSet={`${profileImg} 480w, ${profileImgLarge} 592w`}
+                                    width = {592}
+                                    height = {793}
                                     sizes= {`(max-width: ${media.mobile}px) 100vw, 480px`}
-                                    alt="Profile picture of myself, crazy right?"
+                                    alt="Ryan Norin standing in front of a game display"
                                 />
                                 <svg className={styles.svg} data-visible={visible} viewBox="0 0 136 766">
                                     <use href={`${katakana}#katakana-profile`} />
