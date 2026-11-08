@@ -12,8 +12,8 @@ import { useState } from "react";
 import { Navbar } from "./layout/navbar/navbar";
 import { ThemeProvider, themeStyles } from "~/components/theme-provider/theme-provider";
 import type { ThemeName } from "~/components/theme-provider/theme";
-import "./global.module.css";
-import "./reset.module.css";
+import "./global.css";
+import "./reset.css";
 import styles from "./root.module.css";
 import favicon from "~/assets/favicon.svg";
 

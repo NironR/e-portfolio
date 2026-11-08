@@ -1,7 +1,7 @@
 import type { Preview } from '@storybook/react-vite'
 import { ThemeProvider, themeStyles } from '../app/components/theme-provider/theme-provider'
-import '../app/global.module.css'
-import '../app/reset.module.css'
+import '../app/global.css'
+import '../app/reset.css'
 
 // Mirror app/root.tsx: theme tokens are keyed off body[data-theme]
 document.body.dataset.theme = 'dark'
