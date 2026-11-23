@@ -1,3 +1,5 @@
+@import 'tailwindcss/components';
+
 @layer components {
   .model {
     position: relative;
@@ -11,5 +13,16 @@
   .canvas {
     position: absolute;
     inset: 0;
+  }
+
+  /* without WebGL: the screen as a still image, where the 3D laptop's screen sits */
+  .still {
+    position: absolute;
+    top: 19%;
+    left: 24%;
+    width: 52%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 24px 48px color-mix(in lab, black 40%, transparent);
   }
 }
