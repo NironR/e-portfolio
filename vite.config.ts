@@ -29,7 +29,9 @@ export default defineConfig({
     mainFields: ["browser", "module", "main"]
   },
   build: {
-    minify: true
+    minify: true,
+    // keep SVG sprites (katakana.svg) as files: <use href> can't point into a data: URL
+    assetsInlineLimit: 1024
   },
   // the device models (laptop, phone) are imported as files
   assetsInclude: ["**/*.glb"]

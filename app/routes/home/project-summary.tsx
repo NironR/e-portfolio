@@ -175,7 +175,8 @@ export function ProjectSummary({
             {...rest}
         >
             <div className={styles.content}>
-                <Transition in={sectionVisible || focused}>
+                {/* kept in the page while hidden, so the details fade in up when the section scrolls in */}
+                <Transition unmount={false} in={sectionVisible || focused}>
                     {({ visible }) => (
                         <>
                             {!alternate && !isMobile && (
