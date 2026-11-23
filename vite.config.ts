@@ -30,5 +30,7 @@ export default defineConfig({
   },
   build: {
     minify: true
-  }
+  },
+  // the device models (laptop, phone) are imported as files
+  assetsInclude: ["**/*.glb"]
 });

@@ -2,6 +2,10 @@ import type { MetaFunction } from "@remix-run/cloudflare";
 import { useEffect, useRef, useState } from "react";
 import { Intro } from "~/routes/home/intro";
 import { Profile } from "~/routes/home/profile";
+import { ProjectSummary } from "~/routes/home/project-summary";
+import f1Texture from "~/assets/f1-hero.jpg";
+import f1TextureLarge from "~/assets/f1-hero-large.jpg";
+import f1TexturePlaceholder from "~/assets/f1-hero-placeholder.jpg";
 import config from "~/config.json";
 import styles from "./home.module.css";
 
@@ -75,6 +79,27 @@ export const Home = () => {
                 sectionRef={intro}
                 visible={visibleSections.includes(intro.current)}
                 scrollIndicatorHidden={scrollIndicatorHidden}
+            />
+
+            <ProjectSummary
+                id="project-1"
+                sectionRef={projectOne}
+                visible={visibleSections.includes(projectOne.current)}
+                index={1}
+                title="Predicting every Formula 1 race"
+                description="Machine learning that predicts finishing order, safety cars, tyre wear and pit stops before each Grand Prix, then checks every call against the result"
+                buttonText="View project"
+                buttonLink="/projects/f1-race-predictor"
+                model={{
+                    type: "laptop",
+                    alt: "F1 Race Predictor results page",
+                    textures: [
+                        {
+                            srcSet: `${f1Texture} 1280w, ${f1TextureLarge} 2560w`,
+                            placeholder: f1TexturePlaceholder,
+                        },
+                    ],
+                }}
             />
 
             <Profile

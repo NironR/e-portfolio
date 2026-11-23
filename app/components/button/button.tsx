@@ -8,6 +8,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     secondary?: boolean;
     href?: string;
     icon?: string;
+    iconEnd?: string;
     iconHoverShift?: boolean;
     children: React.ReactNode;
 }
@@ -16,6 +17,7 @@ export const Button = ({
                            secondary,
                            href,
                            icon,
+                           iconEnd,
                            iconHoverShift,
                            children,
                            className,
@@ -34,6 +36,7 @@ export const Button = ({
         >
             {icon && <Icon icon={icon} />}
             {children}
+            {iconEnd && <Icon icon={iconEnd} />}
         </Element>
     );
 };
