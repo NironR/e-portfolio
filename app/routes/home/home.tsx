@@ -7,7 +7,7 @@ import styles from "./home.module.css";
 
 export const meta: MetaFunction = () => {
     return [
-        { title: "Designer + Engineer" },
+        { title: `${config.name} | Designer + Engineer` },
         {
             name: "description",
             content: `Personal portfolio of ${config.name} - a software engineer working on desktop and web apps with a focus on UI, motion, and design`,
