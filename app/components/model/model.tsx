@@ -14,6 +14,7 @@ import {
     AmbientLight,
     Color,
     DirectionalLight,
+    FileLoader,
     Group,
     Light,
     MathUtils,
@@ -88,6 +89,19 @@ interface ModelProps {
 }
 
 type ScreenMesh = Mesh<PlaneGeometry, MeshStandardMaterial>;
+
+/**
+ * Get a device ready before it scrolls in: the loaders, the Draco decoder, the model file and the
+ * screen placeholders, all held in three's Cache, so showing it later is only the GPU's work
+ */
+export async function warmModel(url: string, placeholders: string[]) {
+    const modelLoader = await getModelLoader();
+    modelLoader.dracoLoader?.preload();
+    await Promise.all([
+        new FileLoader().setResponseType('arraybuffer').loadAsync(url),
+        ...placeholders.map(src => getTextureLoader().loadAsync(src)),
+    ]);
+}
 
 export const Model = ({
     models,

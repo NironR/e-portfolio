@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
+import type { LinksFunction, MetaFunction } from "@remix-run/cloudflare";
 import { useEffect, useRef, useState } from "react";
 import { Intro } from "~/routes/home/intro";
 import { Profile } from "~/routes/home/profile";
@@ -8,6 +8,12 @@ import f1TextureLarge from "~/assets/f1-hero-large.jpg";
 import f1TexturePlaceholder from "~/assets/f1-hero-placeholder.jpg";
 import config from "~/config.json";
 import styles from "./home.module.css";
+
+// Prefetch the Draco decoder the project models need, so they load as soon as they scroll in
+export const links: LinksFunction = () => [
+    { rel: "prefetch", href: "/draco/draco_wasm_wrapper.js", as: "script", type: "text/javascript" },
+    { rel: "prefetch", href: "/draco/draco_decoder.wasm", as: "fetch", type: "application/wasm" },
+];
 
 export const meta: MetaFunction = () => {
     return [

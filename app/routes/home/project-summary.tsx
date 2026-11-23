@@ -8,7 +8,7 @@ import { Text } from '~/components/text';
 import { useTheme } from '~/components/theme-provider/theme-provider';
 import { Transition } from '~/components/transition';
 import { useHydrated, useWindowSize } from '~/hooks';
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { cssProps, media } from '~/utils/styles';
 import katakana from './katakana.svg';
 import styles from './project-summary.module.css';
@@ -63,6 +63,27 @@ export function ProjectSummary({
     const indexText = index < 10 ? `0${index}` : index;
     const phoneSizes = `(max-width: ${media.tablet}px) 30vw, 20vw`;
     const laptopSizes = `(max-width: ${media.tablet}px) 80vw, 40vw`;
+
+    // While the visitor reads the intro, get the model ready, so it shows as soon as it scrolls in
+    useEffect(() => {
+        if (!isHydrated) return;
+        const warm = () =>
+            import('~/components/model')
+                .then(module =>
+                    module.warmModel(
+                        deviceModels[model.type].url,
+                        model.textures.map(texture => texture.placeholder)
+                    )
+                )
+                .catch(() => {}); // the model loads normally when it scrolls in
+        if ('requestIdleCallback' in window) {
+            const id = window.requestIdleCallback(warm, { timeout: 2000 });
+            return () => window.cancelIdleCallback(id);
+        }
+        const id = setTimeout(warm, 1000);
+        return () => clearTimeout(id);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isHydrated]);
 
     function handleModelLoad() {
         setModelLoaded(true);
