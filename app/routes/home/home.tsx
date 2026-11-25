@@ -93,7 +93,7 @@ export const Home = () => {
                 visible={visibleSections.includes(projectOne.current)}
                 index={1}
                 title="Predicting every Formula 1 race"
-                description="Machine learning that predicts finishing order, safety cars, tyre wear and pit stops before each Grand Prix, then checks every call against the result"
+                description="A machine learning model that predicts finishing orders, safety cars, tyre wear and pit stops of each Grand Prix" 
                 buttonText="View project"
                 buttonLink="/projects/f1-race-predictor"
                 model={{
