@@ -1,7 +1,7 @@
 <p align="center">
   <img src="app/assets/favicon.svg" width="60" alt="NR monogram" />
 </p>
-<h1 align="center">Ryan Norin — Portfolio</h1>
+<h1 align="center">Portfolio</h1>
 
 [![Site preview](docs/site-preview.png)](https://e-portfolio.nironr6.workers.dev)
 
@@ -17,13 +17,13 @@ cd e-portfolio
 npm install
 ```
 
-Start the local dev server at [localhost:5173](http://localhost:5173):
+Start the local dev server at [localhost](http://localhost:5173):
 
 ```bash
 npm run dev
 ```
 
-To browse the components in Storybook at [localhost:6006](http://localhost:6006):
+To browse the components in Storybook at [localhost](http://localhost:6006):
 
 ```bash
 npm run storybook
@@ -35,7 +35,7 @@ npm run storybook
 | --- | --- |
 | `npm run dev` | Start the Remix dev server |
 | `npm run build` | Production build into `build/` |
-| `npm run preview` | Build, then serve it locally with the Cloudflare Workers runtime (`wrangler dev`) — the closest thing to production |
+| `npm run preview` | Build it then serve it locally with Cloudflare Workers runtime (`wrangler dev`) |
 | `npm run typecheck` | Type-check with TypeScript |
 | `npm run lint` | Lint with ESLint |
 | `npm run check` | Type-check, build and do a deploy dry run in one go |
@@ -48,7 +48,7 @@ npm run storybook
 
 The site is deployed with [Cloudflare Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/):
 
-- **Every pull request** gets its own preview deploy. The Cloudflare bot comments on the PR with a preview URL.
+- **Pull requests** allow preview deploys.
 - **Merging into `main`** deploys to production.
 
 To deploy manually instead (requires being logged in with `npx wrangler login`):
@@ -57,7 +57,7 @@ To deploy manually instead (requires being logged in with `npx wrangler login`):
 npm run deploy
 ```
 
-> Some bugs only show up in production builds (for example, CSS imported purely for side effects). Run `npm run preview` or `npm run check` before merging anything that touches styles or build config.
+> Some bugs may show up in production builds (E.g. CSS imported purely for side effects). Run `npm run preview` or `npm run check` before merging anything that touches styles or build config.
 
 ## Project structure
 
@@ -79,11 +79,11 @@ tests/                      # Playwright end-to-end tests
 
 ## Credits & permissions
 
-This site is built on [HamishMW/portfolio](https://github.com/HamishMW/portfolio) by Hamish Williams, used under the [MIT License](LICENSE). I've adapted the design, theme and components to make it my own.
+This site is inspired on [HamishMW/portfolio](https://github.com/HamishMW/portfolio) by Hamish Williams, used under the [MIT License](LICENSE). I've adapted the design, theme and components to make it my own.
 
 You're welcome to read the code and borrow parts of it for your own site. If you reuse the overall design largely unmodified, please credit [Hamish Williams](https://hamishw.com) as its original designer.
 
-Please don't present any of my projects as your own — this is my real portfolio, and the projects on it are work I've done.
+Please don't present any of my projects as your own; this is my real portfolio, and the projects on it are work I've done.
 
 ## FAQs
 
