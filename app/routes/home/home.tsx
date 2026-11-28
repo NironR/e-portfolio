@@ -95,10 +95,10 @@ export const Home = () => {
                 title="Predicting every Formula 1 race"
                 description="A machine learning model that predicts finishing orders, safety cars, tyre wear and pit stops of each Grand Prix" 
                 buttonText="View project"
-                buttonLink="/projects/f1-race-predictor"
+                buttonLink="/projects/gridlock"
                 model={{
                     type: "laptop",
-                    alt: "F1 Race Predictor results page",
+                    alt: "Gridlock results page",
                     textures: [
                         {
                             srcSet: `${f1Texture} 1280w, ${f1TextureLarge} 2560w`,

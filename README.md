@@ -63,7 +63,7 @@ npm run deploy
 
 ```
 app/
-├── routes/                 # Pages: home, project pages (e.g. projects.f1-race-predictor)
+├── routes/                 # Pages: home, project pages (e.g. projects.gridlock)
 │   └── home/               # Intro, project summaries, profile, displacement sphere
 ├── components/             # Reusable UI (button, heading, image, model, text, …) + their stories
 │   └── theme-provider/     # Design tokens (theme.ts) and the light/dark theme context
@@ -109,6 +109,6 @@ Please don't present any of my projects as your own; this is my real portfolio, 
   <summary>How do I add a new project?</summary>
 
   1. Add a `ProjectSummary` to `app/routes/home/home.tsx` with the next `id` (e.g. `project-2`), a title, description, button link and device model textures from `app/assets/`.
-  2. Create the project's page as a new route, following `app/routes/projects.f1-race-predictor/route.tsx`.
+  2. Create the project's page as a new route, following `app/routes/projects.gridlock/route.tsx`.
   3. The laptop and phone models are Draco-compressed; their decoder is already served from `public/draco/`, so no extra setup is needed.
 </details>

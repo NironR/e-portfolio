@@ -25,7 +25,7 @@ import {
 } from '~/layout/project';
 import config from '~/config.json';
 
-const title = 'F1 Race Predictor';
+const title = 'Gridlock';
 const description =
     'A machine learning project that predicts every Formula 1 race before the lights go out, then scores each call against what really happened. It rebuilds itself after every Grand Prix.';
 const roles = ['Machine Learning', 'Data Pipeline', 'Python', 'Front End Development'];
@@ -39,7 +39,7 @@ export const meta: MetaFunction = () => [
 
 const image = (src: string, large: string) => `${src} 1280w, ${large} 2560w`;
 
-export default function F1RacePredictor() {
+export default function Gridlock() {
     return (
         <ProjectContainer>
             <ProjectBackground
